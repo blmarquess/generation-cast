@@ -48,7 +48,8 @@ export default Home
 
 export const getStaticProps: GetStaticProps = async context => {
   const TIME_VALIDATE = 43200
-  const { dataYT } = await fetch('http://localhost:3000/api/cast').then(res =>
+  const { NEXT_PUBLIC_API_LOCAL } = process.env
+  const { dataYT } = await fetch(`${NEXT_PUBLIC_API_LOCAL|| 'http://localhost:3000/api/cast'}`).then(res =>
     res.json()
   )
   return {

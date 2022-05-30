@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  compiler: {
-    // ssr and displayName are configured by default
-    styledComponents: true,
-  },
+  compiler: { styledComponents: true },
   images: {
     domains: ["i.ytimg.com", "yt3.ggpht.com"],
   }
