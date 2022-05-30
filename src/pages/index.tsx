@@ -1,4 +1,4 @@
-// import type { GetStaticProps, NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { DataGoogleApi, ytVideo } from '../@types/types'
@@ -19,13 +19,13 @@ const Home = (props: IProps) => {
       </Head>
       <Menu />
       <main>
-        {/* <section>
+        <section>
           {props.dataYT.items
             ?.filter(tem => tem.id.kind === 'youtube#video')
             .map((vid: ytVideo) => (
               <SimpleCart key={`${vid.etag}${vid.id.videoId}`} {...vid} />
             ))}
-        </section> */}
+        </section>
       </main>
 
       <footer>
@@ -46,14 +46,14 @@ const Home = (props: IProps) => {
 
 export default Home
 
-// export const getStaticProps: GetStaticProps = async context => {
-//   const TIME_VALIDATE = 43200
-//   const { NEXT_PUBLIC_API_LOCAL } = process.env
-//   const { dataYT } = await fetch(`${NEXT_PUBLIC_API_LOCAL|| 'http://localhost:3000/api/cast'}`).then(res =>
-//     res.json()
-//   )
-//   return {
-//     props: { dataYT },
-//     revalidate: TIME_VALIDATE
-//   }
-// }
+export const getStaticProps: GetStaticProps = async context => {
+  const TIME_VALIDATE = 43200
+  const { NEXT_PUBLIC_API_LOCAL } = process.env
+  const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL || 'http://localhost:3000/api/cast').then(res =>
+    res.json()
+  )
+  return {
+    props: { dataYT },
+    revalidate: TIME_VALIDATE
+  }
+}
