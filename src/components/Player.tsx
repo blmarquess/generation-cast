@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Player(): JSX.Element {
+export default function Player(props:): JSX.Element {
   return (
     <div>
       {/* <iframe

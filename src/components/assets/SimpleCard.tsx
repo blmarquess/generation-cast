@@ -2,7 +2,7 @@ import Image from "next/image"
 import React from "react"
 import { ytVideo } from "../../@types/types"
 
-export default function SimpleCart(props: ytVideo) {
+export default function SimpleCard(props: ytVideo) {
   return (
     <div>
       <a
