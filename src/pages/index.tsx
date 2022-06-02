@@ -1,8 +1,7 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { DataGoogleApi, ytVideo } from '../@types/types'
-import SimpleCart from '../components/assets/SimpleCart'
+import SimpleCard from '../components/assets/SimpleCard'
 import Menu from '../components/Header/menu/Menu'
 
 type IProps = {
@@ -20,25 +19,16 @@ const Home = (props: IProps) => {
       <Menu />
       <main>
         <section>
-          {props.dataYT.items
-            ?.filter(tem => tem.id.kind === 'youtube#video')
+          {props.dataYT?.items
+            .filter(tem => tem.id.kind === 'youtube#video')
             .map((vid: ytVideo) => (
-              <SimpleCart key={`${vid.etag}${vid.id.videoId}`} {...vid} />
+              <SimpleCard key={`${vid.etag}${vid.id.videoId}`} {...vid} />
             ))}
         </section>
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
           Powered by{' '}
-          <span>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
       </footer>
     </div>
   )
@@ -46,14 +36,27 @@ const Home = (props: IProps) => {
 
 export default Home
 
-export const getStaticProps: GetStaticProps = async context => {
-  const TIME_VALIDATE = 43200
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  // const TIME_VALIDATE = 43200
   const { NEXT_PUBLIC_API_LOCAL } = process.env
   const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL || 'http://localhost:3000/api/cast').then(res =>
     res.json()
   )
+
+  // if (!dataYT) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false
+  //     }
+  //   }
+  // }
+
   return {
-    props: { dataYT },
-    revalidate: TIME_VALIDATE
+    props: {
+      title: 'Home',
+      dataYT
+    },
+    // revalidate: TIME_VALIDATE
   }
 }
