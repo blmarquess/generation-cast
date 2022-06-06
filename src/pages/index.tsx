@@ -12,7 +12,7 @@ type IProps = {
 }
 
 const Home = (props: IProps) => {
-  const firstPlaylist: ytVideo = props.dataYT.items[0];
+  const firstPlaylist: ytVideo = props.dataYT?.items[0];
 
   return (
     <div>
@@ -45,9 +45,9 @@ const Home = (props: IProps) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { NEXT_PUBLIC_API_LOCAL } = process.env
-  const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL || 'http://localhost:3000/api/cast').then(res =>
-    res.json()
+  const { NEXT_PUBLIC_API_LOCAL, NEXT_PUBLIC_API_URI } = process.env
+  const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL || NEXT_PUBLIC_API_URI
+    || 'http://localhost:3000/api/cast').then(res => res.json()
   )
 
   return {
