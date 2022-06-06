@@ -37,26 +37,15 @@ const Home = (props: IProps) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const TIME_VALIDATE = 43200
   const { NEXT_PUBLIC_API_LOCAL } = process.env
   const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL || 'http://localhost:3000/api/cast').then(res =>
     res.json()
   )
 
-  // if (!dataYT) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //       permanent: false
-  //     }
-  //   }
-  // }
-
   return {
     props: {
       title: 'Home',
       dataYT
-    },
-    // revalidate: TIME_VALIDATE
+    }
   }
 }
