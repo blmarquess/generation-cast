@@ -45,3 +45,8 @@ export interface DataGoogleApi {
   };
   items: ytVideo[];
 }
+
+export interface IPlayerParams {
+    height: number | string,
+    width: number | string,
+};

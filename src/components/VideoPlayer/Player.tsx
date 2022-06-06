@@ -16,10 +16,10 @@ type IVideoOptionSize = {
 }
 
 export default function Player(props: ytVideo): JSX.Element {
-  function useWindowSize() {
+  const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<IPlayerParams>({
     width: 950,
-    height: 1200,
+    height: 950,
   });
 
   useEffect(() => {
@@ -40,41 +40,27 @@ export default function Player(props: ytVideo): JSX.Element {
   }, []);
   return windowSize;
   }
-  const size = useWindowSize();
 
-  function calcArea(a:number, b:number) {
-    return a * b;
-  }
+  const size = useWindowSize()
+
+  const calcArea = (a:number, b:number) => a * b;
+
   const videoOptionSize:IVideoOptionSize= {
     playing: {
-      height: calcArea(size.height as number, 0.85) as number,
+      height: calcArea(size.height as number, 0.75),
       width: calcArea(size.width as number, 0.95),
     },
     stopped:  {
-      height: calcArea(size.height as number, 0.45),
+      height: calcArea(size.height as number, 0.47),
       width: calcArea(size.width as number, 1),
     }
   }
 
   const [videoState, setVideoState] = useState<IPlayerParams>(videoOptionSize.stopped)
 
-  // const playerOptions = {
-  //         height: videoState.height,
-  //         width: videoState.width,
-  //         playerVars: {
-  //           autoplay: 0,
-  //           controls: 0,
-  //           origin: 'https://www.youtube.com',
-  //         },
-  //       }
+  const setVideoStatePlay = () => setVideoState(videoOptionSize.playing)
 
-  const setVideoStatePlay = () => {
-    setVideoState(videoOptionSize.playing)
-  }
-
-  const setVideoStateStop = () => {
-    setVideoState(videoOptionSize.stopped)
-  }
+  const setVideoStateStop = () => setVideoState(videoOptionSize.stopped)
 
   return (
     <VideoBox>
@@ -85,14 +71,8 @@ export default function Player(props: ytVideo): JSX.Element {
         controls={true}
         onPlay={setVideoStatePlay}
         onPause={setVideoStateStop}
+        key={props.etag}
       />
-      {/* <YouTube
-        videoId={props.id.videoId}
-        id={props.id.videoId}
-        title={props.snippet.title}
-        onPlay={setVideoStatePlay}
-        onPause={setVideoStateStop}
-        opts={playerOptions} /> */}
     </VideoBox>
   )
 }

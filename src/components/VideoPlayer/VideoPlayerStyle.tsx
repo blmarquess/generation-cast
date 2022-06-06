@@ -1,4 +1,4 @@
-import styled, { StyledProps } from 'styled-components'
+import styled from 'styled-components'
 
 const chaneleImgURL = 'https://yt3.ggpht.com/VHTTsd4UB0WQL7PXIf5TqKhdyZ8lDNpD4x1QUosoiJg6CNk5sud3asdEJ8KLIcFU2dCzVX6yVw=s800-c-k-c0xffffffff-no-rj-mo';
 
@@ -13,8 +13,8 @@ export const VideoBox = styled.div`
   box-sizing: border-box;
   overflow: hidden;
 
-  width: ${({ theme: { sizes: { width } }}) => width || '100%'};
-  height: ${({ theme: { sizes: { height } }}) => height || '45vh'};
+  width: ${({ theme: { sizes: { width } }}) => width || '95%'};
+  height: ${({ theme: { sizes: { height } }}) => height || '47vh'};
 
   display: flex;
   justify-content: center;

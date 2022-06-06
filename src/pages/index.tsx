@@ -1,14 +1,19 @@
-import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import type { GetServerSideProps } from 'next'
 import { DataGoogleApi, ytVideo } from '../@types/types'
-import SimpleCard from '../components/assets/SimpleCard'
+
 import Menu from '../components/Header/menu/Menu'
+import SimpleCard from '../components/assets/SimpleCard'
+import Player from '../components/VideoPlayer/Player'
+import { Main } from '../styles/main'
 
 type IProps = {
   dataYT: DataGoogleApi
 }
 
 const Home = (props: IProps) => {
+  const firstPlaylist: ytVideo = props.dataYT.items[0];
+
   return (
     <div>
       <Head>
@@ -17,7 +22,10 @@ const Home = (props: IProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Menu />
-      <main>
+      <Main>
+        <section>
+          <Player {...firstPlaylist} />
+        </section>
         <section>
           {props.dataYT?.items
             .filter(tem => tem.id.kind === 'youtube#video')
@@ -25,7 +33,7 @@ const Home = (props: IProps) => {
               <SimpleCard key={`${vid.etag}${vid.id.videoId}`} {...vid} />
             ))}
         </section>
-      </main>
+      </Main>
 
       <footer>
           Powered by{' '}
