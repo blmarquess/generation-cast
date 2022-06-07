@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player';
 // import YouTube from 'react-youtube';
 import { ytVideo, IPlayerParams } from '../../@types/types'
+import useWindowSize from '../../hooks/useWindowsSize';
 import { VideoBox} from './VideoPlayerStyle'
 
 type IVideoOptionSize = {
@@ -16,30 +17,7 @@ type IVideoOptionSize = {
 }
 
 export default function Player(props: ytVideo): JSX.Element {
-  const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState<IPlayerParams>({
-    width: 950,
-    height: 950,
-  });
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      function handleResize() {
-        setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
-      }
-
-      window.addEventListener("resize", handleResize);
-
-      handleResize();
-
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  }, []);
-  return windowSize;
-  }
 
   const size = useWindowSize()
 
