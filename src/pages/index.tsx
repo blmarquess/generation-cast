@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import type { GetServerSideProps } from 'next'
 import { DataGoogleApi, ytVideo } from '../@types/types'
@@ -12,8 +13,9 @@ type IProps = {
 }
 
 const Home = (props: IProps) => {
-  const firstPlaylist: ytVideo = props.dataYT?.items[0];
-
+  const firstPlay: ytVideo = props.dataYT?.items[0];
+  const [playerState, setPlayerState] = useState<ytVideo>(firstPlay);
+  const changePlayerVideo = (video: ytVideo) => setPlayerState(video);
   return (
     <div>
       <Head>
@@ -24,15 +26,17 @@ const Home = (props: IProps) => {
       <Menu />
       <Main>
         <section>
-          <Player {...firstPlaylist} />
+          <Player {...playerState} />
         </section>
+
         <section>
           {props.dataYT?.items
             .filter(tem => tem.id.kind === 'youtube#video')
             .map((vid: ytVideo) => (
-              <SimpleCard key={`${vid.etag}${vid.id.videoId}`} {...vid} />
+              <SimpleCard key={`${vid.etag}${vid.id.videoId}`} {...vid} funcClick={changePlayerVideo} />
             ))}
         </section>
+
       </Main>
 
       <footer>
