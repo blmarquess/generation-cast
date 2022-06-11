@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback,  useState } from 'react'
 import ReactPlayer from 'react-player';
-// import YouTube from 'react-youtube';
 import { ytVideo, IPlayerParams } from '../../@types/types'
 import useWindowSize from '../../hooks/useWindowsSize';
 import { VideoBox} from './VideoPlayerStyle'
@@ -37,8 +36,10 @@ export default function Player(props: ytVideo): JSX.Element {
   const [videoState, setVideoState] = useState<IPlayerParams>(videoOptionSize.stopped)
 
   const setVideoStatePlay = () => setVideoState(videoOptionSize.playing)
-
   const setVideoStateStop = () => setVideoState(videoOptionSize.stopped)
+  const handleContextMenu = useCallback((event:Event) => {
+      event.preventDefault();
+  }, []);
 
   return (
     <VideoBox>
@@ -47,9 +48,15 @@ export default function Player(props: ytVideo): JSX.Element {
         height={videoState.height}
         url={`https://www.youtube-nocookie.com/embed/${props.id.videoId}`}
         controls={true}
-        onPlay={setVideoStatePlay}
-        onPause={setVideoStateStop}
-        key={props.etag}
+        onPlay={ setVideoStatePlay }
+        onPause={ setVideoStateStop }
+        key={ props.etag }
+        onContextMenu={ handleContextMenu }
+        config={{
+          youtube: { playerVars: { showinfo: 1 } },
+          file: { attributes: { controlsList: "nodownload" }
+        }
+        }}
       />
     </VideoBox>
   )

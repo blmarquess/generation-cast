@@ -2,12 +2,6 @@ import styled from 'styled-components'
 
 const chaneleImgURL = 'https://yt3.ggpht.com/VHTTsd4UB0WQL7PXIf5TqKhdyZ8lDNpD4x1QUosoiJg6CNk5sud3asdEJ8KLIcFU2dCzVX6yVw=s800-c-k-c0xffffffff-no-rj-mo';
 
-interface IDivProps {
-  height?: string;
-  width?: string;
-  backgroundImage?: string;
-}
-
 export const VideoBox = styled.div`
   position: relative;
   box-sizing: border-box;
