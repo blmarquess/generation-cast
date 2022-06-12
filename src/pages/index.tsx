@@ -30,8 +30,8 @@ const Home = (props: IProps) => {
 
     <Container sx={{ justifyContent: 'center', alignItems: 'center' }}
       >
-      <Menu />
       <Main>
+      <Menu />
         <Grid
           container spacing={0}
           direction="column"
@@ -41,7 +41,7 @@ const Home = (props: IProps) => {
       <Player {...playerState} />
 
         <Grid
-          container spacing={2}
+          container
           direction="row"
           justifyContent="space-between"
           alignItems="center">
@@ -49,7 +49,7 @@ const Home = (props: IProps) => {
             .filter(tem => tem.id.kind === 'youtube#video')
             .map((vid: ytVideo) => (
               <Box key={`${vid.etag}${vid.id.videoId}`}
-                sx={{ width: 320, minWidth: 240, marginRight: 0.5, my: 6, pr: 2 }}
+                sx={{ width: 320, minWidth: 240, mt: 4 }}
               >
                 <SimpleCard key={`${vid.etag}${vid.id.videoId}`} {...vid} funcClick={ changePlayerVideo } />
               </Box>

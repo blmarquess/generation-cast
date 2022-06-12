@@ -1,6 +1,6 @@
 import React from "react"
 import Card from "@mui/material/Card";
-import { CardActionArea, CardMedia, CardContent, Typography, CardActions, Button } from "@mui/material";
+import { CardActionArea, CardMedia, CardContent, Typography } from "@mui/material";
 import Link from "next/link";
 import { ytVideo } from "../../@types/types"
 
@@ -10,7 +10,7 @@ interface IPtops extends ytVideo {
 
 export default function SimpleCard(props: IPtops) {
   return (
-    <Card sx={{ maxWidth: 340, maxHeight: 250, }}>
+    <Card sx={{ maxWidth: 340, maxHeight: 250 }}>
       <CardActionArea>
         <CardMedia
           component="img"

@@ -7,6 +7,12 @@ export const MenuStyle = styled.div`
   align-items: center;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  position: relative;
+  top: 0;
+  margin-top: -1.6rem;
+  margin-bottom: 1rem;
 
   section { display: flex; align-items: center; }
   ul { display: flex; }
