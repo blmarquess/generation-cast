@@ -1,8 +1,9 @@
-import React, { useCallback,  useState } from 'react'
-import ReactPlayer from 'react-player';
+import React, { useCallback, useState } from 'react'
+import ReactPlayer from 'react-player'
+import useWindowSize from '../../hooks/useWindowsSize'
+import { VideoBox } from './VideoPlayerStyle'
+
 import { ytVideo, IPlayerParams } from '../../@types/types'
-import useWindowSize from '../../hooks/useWindowsSize';
-import { VideoBox} from './VideoPlayerStyle'
 
 type IVideoOptionSize = {
     playing: {
@@ -16,8 +17,6 @@ type IVideoOptionSize = {
 }
 
 export default function Player(props: ytVideo): JSX.Element {
-
-
   const size = useWindowSize()
 
   const calcArea = (a:number, b:number) => a * b;
@@ -25,7 +24,7 @@ export default function Player(props: ytVideo): JSX.Element {
   const videoOptionSize:IVideoOptionSize= {
     playing: {
       height: calcArea(size.height as number, 0.75),
-      width: calcArea(size.width as number, 0.95),
+      width: calcArea(size.width as number, 1),
     },
     stopped:  {
       height: calcArea(size.height as number, 0.47),
@@ -35,27 +34,26 @@ export default function Player(props: ytVideo): JSX.Element {
 
   const [videoState, setVideoState] = useState<IPlayerParams>(videoOptionSize.stopped)
 
-  const setVideoStatePlay = () => setVideoState(videoOptionSize.playing)
-  const setVideoStateStop = () => setVideoState(videoOptionSize.stopped)
-  const handleContextMenu = useCallback((event:Event) => {
-      event.preventDefault();
-  }, []);
+  const setVideoStatePlay = useCallback(() => setVideoState(videoOptionSize.playing), [])
+
+  const setVideoStateStop = useCallback(() => setVideoState(videoOptionSize.stopped), [])
+
+  const handleContextMenu = (event:Event) =>  event.preventDefault()
 
   return (
     <VideoBox>
       <ReactPlayer
-        width={videoState.width}
-        height={videoState.height}
-        url={`https://www.youtube-nocookie.com/embed/${props.id.videoId}`}
-        controls={true}
+        width={ videoState.width }
+        height={ videoState.height }
+        url={ `https://www.youtube-nocookie.com/embed/${props.id.videoId}` }
+        controls={ true }
         onPlay={ setVideoStatePlay }
         onPause={ setVideoStateStop }
         key={ props.etag }
         onContextMenu={ handleContextMenu }
         config={{
           youtube: { playerVars: { showinfo: 1 } },
-          file: { attributes: { controlsList: "nodownload" }
-        }
+          file: { attributes: { controlsList: "nodownload" } }
         }}
       />
     </VideoBox>

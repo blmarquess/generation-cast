@@ -21,7 +21,7 @@ export default function SimpleCard(props: IPtops) {
           onClick={() => props.funcClick(props)}
         />
         <Link href={`https://www.youtube.com/watch?v=${props.id.videoId}`} >
-          <CardContent sx={{ height: 80, p: 2 }}>
+          <CardContent sx={{ height: 80, p: 2, backgroundColor: 'rgb(255,255,255)' }}>
               <Typography gutterBottom variant="body2" component="div">
                 {props.snippet.title}
               </Typography>

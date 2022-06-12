@@ -1,23 +1,30 @@
-import { useState } from 'react'
 import Head from 'next/head'
-import type { GetServerSideProps } from 'next'
-import { DataGoogleApi, ytVideo } from '../@types/types'
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline'
+import { useState } from 'react'
+
 import Menu from '../components/Header/menu/Menu'
 import SimpleCard from '../components/assets/SimpleCard'
 import Player from '../components/VideoPlayer/Player'
-import { Main } from '../styles/main'
-import { Container, Divider, Grid, Stack } from '@mui/material'
 import Box from '@mui/system/Box'
+import { Main } from '../styles/main'
+import { Container, Grid } from '@mui/material'
+
+import { DataGoogleApi, ytVideo } from '../@types/types'
+import type { GetServerSideProps } from 'next'
 
 type IProps = {
   dataYT: DataGoogleApi
 }
 
 const Home = (props: IProps) => {
-  const firstPlay: ytVideo = props.dataYT?.items[0];
-  const [playerState, setPlayerState] = useState<ytVideo>(firstPlay);
-  const changePlayerVideo = (video: ytVideo) => setPlayerState(video);
+  const firstPlay: ytVideo = props.dataYT?.items[0]
+
+  const [playerState, setPlayerState] = useState<ytVideo>(firstPlay)
+
+  const changePlayerVideo = (video: ytVideo) => {
+    setPlayerState(video)
+    return window.scrollTo({ top: 0, behavior: 'smooth' })
+  };
 
   return (
     <>
