@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react'
 import { IPlayerParams } from '../@types/types'
 
 const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState <IPlayerParams> ({
-    width: 950,
-    height: 950,
+  const [windowSize, setWindowSize] = useState({
+    height: '360px',
   });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       function handleResize() {
         setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
+          height: `${window.innerHeight}`,
         });
       }
 

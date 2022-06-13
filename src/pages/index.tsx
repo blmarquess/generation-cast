@@ -10,7 +10,7 @@ import { Main } from '../styles/main'
 import { Container, Grid } from '@mui/material'
 
 import { DataGoogleApi, ytVideo } from '../@types/types'
-import type { GetServerSideProps } from 'next'
+import type { GetStaticProps } from 'next'
 
 type IProps = {
   dataYT: DataGoogleApi
@@ -35,7 +35,7 @@ const Home = (props: IProps) => {
       <CssBaseline />
       </Head>
 
-    <Container sx={{ justifyContent: 'center', alignItems: 'center' }}
+    <Container sx={ { justifyContent: 'center', alignItems: 'center' } }
       >
       <Main>
       <Menu />
@@ -45,6 +45,7 @@ const Home = (props: IProps) => {
           justifyContent="center"
           alignItems="center"
           >
+
       <Player {...playerState} />
 
         <Grid
@@ -75,7 +76,7 @@ const Home = (props: IProps) => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const { NEXT_PUBLIC_API_LOCAL } = process.env
   const { dataYT } = await fetch(NEXT_PUBLIC_API_LOCAL
     || 'http://localhost:3000/api/cast').then(res => res.json()
@@ -83,8 +84,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      title: 'Home',
-      dataYT
+      dataYT,
+      revalidate: 600
     }
   }
 }
